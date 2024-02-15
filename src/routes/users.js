@@ -34,8 +34,32 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
+// router.post("/", auth, async (req, res, next) => {
+//   try {
+//     const { username, password, name, email, phoneNumber, profilePicture } =
+//       req.body;
+//     const newUser = await createUser(
+//       username,
+//       password,
+//       name,
+//       email,
+//       phoneNumber,
+//       profilePicture
+//     );
+//     res.status(201).json(newUser);
+//   } catch (error) {
+//     res.status(400).json({
+//       message: `Failed to create User. Please check your request.`,
+//     });
+//     // next(error);
+//   }
+// });
+
 router.post("/", auth, async (req, res, next) => {
   try {
+    // Attempt to create a new user
+    // If successful, send a 201 response
+    // If an error occurs, jump to the catch block
     const { username, password, name, email, phoneNumber, profilePicture } =
       req.body;
     const newUser = await createUser(
@@ -46,12 +70,13 @@ router.post("/", auth, async (req, res, next) => {
       phoneNumber,
       profilePicture
     );
+    // Send a 201 response if user creation is successful
     res.status(201).json(newUser);
   } catch (error) {
+    // Handle the error by sending a 400 response
     res.status(400).json({
       message: `Failed to create User. Please check your request.`,
     });
-    next(error);
   }
 });
 
